@@ -20,19 +20,20 @@ ul {
 }
 
 li {
-  display: inline-flex;
 }
 
 #logo {
   color: black;
   font-size: 30px;
   float: left;
+  display: inline-flex;
 }
 
 .func {
   color: #00B7FF;
   float: right;
   line-height: 30px;
+  display: inline-flex;
 }
 
 .content {
