@@ -5,8 +5,9 @@ block content
     h1= title
     p Welcome to #{title}
     p 新しいToDoリストを作成する
-    input(id='newListName', type='text',placeholder='リスト名を入力してください')
+    input(id='newListName', type='text', placeholder='リスト名を入力してください', size=30)
     input(id='createListButton', type='button', value='リストの作成')
+    p#topMessage
     div#lists
 
 // jQueryとtodo.jsを読み込む
