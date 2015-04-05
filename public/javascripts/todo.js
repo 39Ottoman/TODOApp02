@@ -19,14 +19,20 @@ function getTodoList() {
         $.get('todolist', function(todoLists) {
             // 取得したToDoリストを追加
             $.each(todoLists, function(index, todoList) {
-                $lists.append('<li>' + todoList.name + '</li>');
+                console.log(todoList._id);
+                var listButton = '<div class="panel">'
+                + '<a href="#">' + todoList.name + '</a></br>'
+                + 'ToDoはありません' + '</br>'
+                + '～9999年9月99日'
+                + '</div>';
+                $lists.append(listButton);
             });
         });
     });
     $lists.fadeIn();
 }
 
-// 新しいToDoリストを作成
+// 新しいToDoリストを作成+再表示
 function createTodoList() {
     var name = $('#newListName').val();
     
