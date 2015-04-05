@@ -5,6 +5,6 @@ block content
     h1= title
     p Welcome to #{title}
     p 新しいToDoリストを作成する
-    input(type='text',placeholder='リスト名を入力してください')
-    input(type='button', value='リストの作成')
+    input(id='newListName', type='text',placeholder='リスト名を入力してください')
+    input(id='createListButton', type='button', value='リストの作成')
     ul#lists
