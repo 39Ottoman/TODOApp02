@@ -21,7 +21,7 @@ function getTodoList() {
             $.each(todoLists, function(index, todoList) {
 //                console.log(todoList._id);
                 var listButton = '<div class="panel">'
-                    + '<a href="#">' + todoList.name + '</a></br>'
+                    + '<a href="/todos/' + todoList._id + '">' + todoList.name + '</a></br>'
                     + 'ToDoはありません' + '</br>'
                     + '～9999年9月99日'
                     + '</div>';
