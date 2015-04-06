@@ -4,7 +4,10 @@ var listId;
 $(function() {
     listId = $('#listId').text();
     // /todolistにGETでアクセスしてリストの名前を取得
-    
+    $.get('/todolist/' + listId, function(todolist) {
+        console.log(todolist);
+        $('#listName').text(todolist.name);
+    });
     
     getTodos();
 });
@@ -38,7 +41,7 @@ function getTodos() {
                     + '期限：　' + new Date(todo.limitDate).toLocaleDateString('ja-JP') + '</br>'
                     + '作成日：' +  new Date(todo.createdDate).toLocaleDateString('ja-JP') + '</br>'
                     + '<input type="button" value="' + (todo.isCheck? '完了': '未完了') + '"/></br>'
-                    + todo.listId
+                    + todo._id
                     + '</div>';
                 $todos.prepend(todoButton);
             });
