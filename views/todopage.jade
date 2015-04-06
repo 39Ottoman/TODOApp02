@@ -4,9 +4,11 @@ block content
   div.content
     p#listName
     p#listId(style='display: none')= listId
-    input(id='newTodoName', type='text', placeholder='ToDoを入力してください', size=30)
+    label(for='newTodoName') ToDo名
+    input(id='newTodoName', name='newTodoName', type='text', placeholder='ToDoを入力してください', size=30)
     br
-    input(id='limitDate', type='date', style='width: 238px;')
+    label(for='limitDate') 期限
+    input(id='limitDate', name='limitDate', type='date', style='width: 238px;', required)
     input(id='createTodoButton', type='button', value='ToDoの作成')
     p#todosMessage
     div#todos

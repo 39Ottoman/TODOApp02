@@ -34,12 +34,13 @@ function getTodos() {
             // 取得したToDoがあれば表示
             $.each(todos, function(index, todo) {
                 var todoButton = '<div class="panel">'
-                    + '<a>' + todo.name + '</a></br>'
-                    + 'ToDoはありません' + '</br>'
-                    + '～9999年9月99日' + '</br>'
+                    + '<h3>' + todo.name + '</h3>'
+                    + '期限：　' + new Date(todo.limitDate).toLocaleDateString('ja-JP') + '</br>'
+                    + '作成日：' +  new Date(todo.createdDate).toLocaleDateString('ja-JP') + '</br>'
+                    + '<input type="button" value="' + (todo.isCheck? '完了': '未完了') + '"/></br>'
                     + todo.listId
                     + '</div>';
-                $todos.append(todoButton);
+                $todos.prepend(todoButton);
             });
         });
     });
@@ -59,15 +60,20 @@ function createTodo() {
     // /todoにPOSTでアクセス
     var data = {name: name, limitDate: limitDate, listId: listId};
     console.log(data);
-    $.post('/todo', data, function(res) {
-        console.log('/todo POST ' + res);
-        // リストが作成されたらリストを更新+メッセージ表示
-        if(res) {
-            getTodos();
-            console.log('create ' + name + '!');
-            $message.text('新しいToDoが作成されました');
-            $message.css('color', 'black');
-        }
+    if(name && limitDate) {
+        $.post('/todo', data, function(res) {
+            console.log('/todo POST ' + res);
+            // リストが作成されたらリストを更新+メッセージ表示
+            if(res) {
+                getTodos();
+                console.log('create ' + name + '!');
+                $message.text('新しいToDoが作成されました');
+                $message.css('color', 'black');
+            }
 
-    });
+        });
+    } else {
+        $message.text('ToDo名と期限を両方とも入力してください');
+        $message.css('color', 'red');
+    }
 }

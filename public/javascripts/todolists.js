@@ -25,7 +25,7 @@ function getTodoList() {
                     + 'ToDoはありません' + '</br>'
                     + '～9999年9月99日'
                     + '</div>';
-                $lists.append(listButton);
+                $lists.prepend(listButton);
             });
         });
     });
