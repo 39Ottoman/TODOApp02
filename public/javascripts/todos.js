@@ -18,14 +18,20 @@ $('#createTodoButton').click(function() {
 // Todoを表示
 function getTodos() {
     var $todos = $('#todos');
+    var $message = $('#todosMessage');
     $todos.fadeOut(function() {
         $todos.children().remove();
         
         // /todoにGETでアクセス
         $.get('/todo/' + listId, function(todos) {
-            console.log('todo/' + listId);
+            console.log('todo - ' + listId);
             console.log(todos);
-            // 取得したToDoリストを追加
+            // Todoがなければメッセージを表示
+            if(todos.length === 0) {
+                $message.text('Todoが作成されていません');
+                $message.css('color', 'red');
+            }
+            // 取得したToDoがあれば表示
             $.each(todos, function(index, todo) {
                 var todoButton = '<div class="panel">'
                     + '<a>' + todo.name + '</a></br>'
