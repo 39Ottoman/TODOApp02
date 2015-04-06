@@ -22,8 +22,8 @@ function getTodos() {
     $todos.fadeOut(function() {
         $todos.children().remove();
         
-        // /todoにGETでアクセス
-        $.get('/todo/' + listId, function(todos) {
+        // /todosにGETでアクセス
+        $.get('/todos/' + listId, function(todos) {
             console.log('todo - ' + listId);
             console.log(todos);
             // Todoがなければメッセージを表示

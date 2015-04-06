@@ -45,9 +45,9 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/todopage', todopage);
 
-// /todolistにGETアクセスしたとき、ToDoリストの一覧を取得するAPI
-app.get('/todolist', function(req, res) {
-    console.log('/todolist GET');
+// /todolistsにGETアクセスしたとき、ToDoリストの一覧を取得するAPI
+app.get('/todolists', function(req, res) {
+    console.log('/todolists GET');
     var TodoList = mongoose.model('TodoList');
     // 全てのToDoを取得して送信
     TodoList.find({}, function(err, todoLists){
@@ -71,8 +71,8 @@ app.post('/todolist', function(req, res) {
     }
 });
 
-// /todoにGETアクセスしたとき、該当するリストのToDo一覧を取得するAPI
-app.get('/todo/:listId', function(req, res) {
+// /todosにGETアクセスしたとき、該当するリストのToDo一覧を取得するAPI
+app.get('/todos/:listId', function(req, res) {
     var listId = req.params.listId;
     // listIdが該当するToDoがあれば、MongoDBから取得+送信
     var Todo = mongoose.model('Todo');

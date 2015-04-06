@@ -15,8 +15,8 @@ function getTodoList() {
     $lists.fadeOut(function() {
         $lists.children().remove();
         
-        // /todolistにGETでアクセス
-        $.get('todolist', function(todoLists) {
+        // /todolistsにGETでアクセス
+        $.get('todolists', function(todoLists) {
             // 取得したToDoリストを追加
             $.each(todoLists, function(index, todoList) {
 //                console.log(todoList._id);
