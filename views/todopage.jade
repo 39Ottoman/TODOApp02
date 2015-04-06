@@ -1,0 +1,17 @@
+extends header
+
+block content
+  div.content
+    p#listName
+    p#listId(style='display: none')= listId
+    input(id='newTodoName', type='text', placeholder='ToDoを入力してください', size=30)
+    br
+    input(id='limitDate', type='date', style='width: 238px;')
+    input(id='createTodoButton', type='button', value='ToDoの作成')
+    p#todosMessage
+    div#todos
+
+// jQueryとtodo.jsを読み込む
+block scripts
+  script(src='http://code.jquery.com/jquery-2.0.0.min.js')
+  script(src='/javascripts/todos.js')

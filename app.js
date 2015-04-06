@@ -14,9 +14,18 @@ var todoListSchema = new Schema({
     name: String
 });
 mongoose.model('TodoList', todoListSchema);
+var todoSchema = new Schema({
+  isCheck     : {type: Boolean, default: false},
+  name        : String,
+  createdDate : {type: Date, default: Date.now},
+  limitDate   : Date,
+  listId: String
+});
+mongoose.model('Todo', todoSchema);
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var todopage = require('./routes/todopage');
 
 var app = express();
 
@@ -34,6 +43,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/todopage', todopage);
 
 // /todolistにGETアクセスしたとき、ToDoリストの一覧を取得するAPI
 app.get('/todolist', function(req, res) {
@@ -55,6 +65,36 @@ app.post('/todolist', function(req, res) {
         todoList.name = name;
         todoList.save();
         
+        res.send(true);
+    } else {
+        res.send(false);
+    }
+});
+
+// /todoにGETアクセスしたとき、該当するリストのToDo一覧を取得するAPI
+app.get('/todo/:listId', function(req, res) {
+    var listId = req.params.listId;
+    // listIdが該当するToDoがあれば、MongoDBから取得+送信
+    var Todo = mongoose.model('Todo');
+    Todo.find({listId: listId}, function(err, todos) {
+        res.send(todos);
+    });
+});
+
+// /todoにPOSTアクセスしたとき、該当するリストにToDoを追加するAPI
+app.post('/todo', function(req, res) {
+    var listId = req.body.listId;
+    var name = req.body.name;
+    var limitDate = req.body.limitDate;
+    console.log(listId, name, limitDate);
+    // listId・name・limitDateがあれば、MongoDBに保存
+    if((listId && name) && limitDate) {
+        var Todo = mongoose.model('Todo');
+        var todo = new Todo();
+        todo.name = name;
+        todo.limitDate = new Date(limitDate);
+        todo.listId = listId;
+        todo.save();
         res.send(true);
     } else {
         res.send(false);
