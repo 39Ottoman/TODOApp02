@@ -26,6 +26,7 @@ mongoose.model('Todo', todoSchema);
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var todopage = require('./routes/todopage');
+var search = require('./routes/search');
 
 var app = express();
 
@@ -44,6 +45,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/users', users);
 app.use('/todopage', todopage);
+app.use('/search', search);
 
 // /todolistsにGETアクセスしたとき、ToDoリストの一覧を取得するAPI
 app.get('/todolists', function(req, res) {
