@@ -39,10 +39,17 @@ function findTodo() {
                     // ToDoの所属しているリストを取得
                     var todoList = findTodoList(todo.listId, todoLists);
                     var todoButton = '<div class="panel">'
+                        + '<div style="float: left;">'
                         + '<h3>' + todo.name + '</h3>'
-                        + '期限：　' + new Date(todo.limitDate).toLocaleDateString('ja-JP') + '</br>'
-                        + '作成日：' +  new Date(todo.createdDate).toLocaleDateString('ja-JP') + '</br>'
                         + 'リスト：<a href="/todopage/' + todoList._id + '">' + todoList.name + '</a></br>'
+                        + '</div>'
+                        + '<div style="float: right; padding-top: 20px;">'
+                        + '<table><tr>'
+                        + '<td>期限：</td><td>' + new Date(todo.limitDate).toLocaleDateString('ja-JP') + '</td></tr>'
+                        + '<tr>'
+                        + '<td>作成日：</td><td>' +  new Date(todo.createdDate).toLocaleDateString('ja-JP') + '</td></tr>'
+                        + '</table></div>'
+                        + '<div style="clear: both;"></div>'
                         + '</div>';
                     $results.prepend(todoButton);
                 });
