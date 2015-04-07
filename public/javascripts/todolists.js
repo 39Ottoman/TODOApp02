@@ -1,6 +1,6 @@
 // ページ表示時にToDoリストを読込
 $(function() {
-    getTodoList();
+    showTodoLists();
 });
 
 // リストの作成ボタンを押すとToDoリストを追加し再表示
@@ -9,8 +9,8 @@ $('#createListButton').click(function() {
     return false;
 });
 
-// Todoリストの一覧を表示
-function getTodoList() {
+// Todoリストの一覧を取得+表示
+function showTodoLists() {
     var $lists = $('#lists');
     $lists.fadeOut(function() {
         $lists.children().remove();
@@ -51,7 +51,7 @@ function createTodoList() {
             console.log('/todolist POST ' + res);
             // リストが作成されたらリストを更新+メッセージ表示
             if(res) {
-                getTodoList();
+                showTodoLists();
                 console.log('create ' + name + '!');
                 $message.text('新しいToDoリストが作成されました');
                 $message.css('color', 'black');

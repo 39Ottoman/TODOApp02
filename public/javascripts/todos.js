@@ -41,7 +41,6 @@ function getTodos() {
                     + '期限：　' + new Date(todo.limitDate).toLocaleDateString('ja-JP') + '</br>'
                     + '作成日：' +  new Date(todo.createdDate).toLocaleDateString('ja-JP') + '</br>'
                     + '<input type="button" value="' + (todo.isCheck? '完了': '未完了') + '"/></br>'
-                    + todo._id
                     + '</div>';
                 $todos.prepend(todoButton);
             });

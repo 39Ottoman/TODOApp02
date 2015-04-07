@@ -60,7 +60,7 @@ app.get('/todolists', function(req, res) {
 // /todolistにGETアクセスしたとき、該当するToDoリスト(1つ)を取得するAPI
 app.get('/todolist/:listId', function(req, res) {
     var listId = req.params.listId;
-    // 全てのToDoを取得して送信
+    // ToDoを取得して送信
     var TodoList = mongoose.model('TodoList');
     TodoList.findOne({_id: listId}, function(err, todoList){
         res.send(todoList);
@@ -95,7 +95,14 @@ app.get('/todos/:listId', function(req, res) {
 
 // /todosにquery付きでGETアクセスしたとき、該当するToDoの一覧を取得するAPI
 app.get('/todos', function(req, res) {
-    console.log(req.query);
+    var name = req.query.name;
+    console.log('req.query.name = ' + name);
+    if(name) {
+        var Todo = mongoose.model('Todo');
+        Todo.find({name: new RegExp('.*' + name + '.*', 'i')}, function(err, todos) {
+            res.send(todos);
+        });
+    }
 });
 
 // /todoにPOSTアクセスしたとき、該当するリストにToDoを追加するAPI
