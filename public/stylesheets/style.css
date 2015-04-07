@@ -52,3 +52,11 @@ ul {
   padding-bottom: 1em;
   box-shadow: 3px 3px lightgray;
 }
+
+.inputPanel {
+  border-style: solid;
+  border-width: thin;
+  border-color: lightgray;
+  height: 100px;
+  padding: 10px;
+}

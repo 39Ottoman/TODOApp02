@@ -4,13 +4,19 @@ block content
   div.content
     p#listName(style='font-weight: 700; font-size: 20px;')
     p#listId(style='display: none;')= listId
-    label(for='newTodoName') ToDo名
-    input(id='newTodoName', name='newTodoName', type='text', placeholder='ToDoを入力してください', size=30)
-    br
-    label(for='limitDate') 期限
-    input(id='limitDate', name='limitDate', type='date', style='width: 238px;', required)
-    input(id='createTodoButton', type='button', value='ToDoの作成')
-    p#todosMessage
+    div.inputPanel
+      p 新しいToDoを作成する
+      div(style='float: left;')
+          div
+            label(for='newTodoName') ToDo名
+            input(id='newTodoName', name='newTodoName', type='text', placeholder='ToDoを入力してください', size=30)
+          div
+            label(for='limitDate') 期限 
+            input(id='limitDate', name='limitDate', type='date', style='width: 238px;', required)
+      div(style='float: left;')
+        input(id='createTodoButton', type='button', value='ToDoの作成', style='height: 3.4em;')
+    div(style='clear: both;')
+    p#todosMessage()
     div#todos
 
 // jQueryとtodo.jsを読み込む
