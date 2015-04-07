@@ -7,17 +7,17 @@ block content
     div.inputPanel
       p 新しいToDoを作成する
       div(style='float: left;')
-          table
-            tr
-              td
-                label(for='newTodoName') ToDo名
-              td
-                input(id='newTodoName', name='newTodoName', type='text', placeholder='ToDoを入力してください', size=30)
-            tr
-              td
-                label(for='limitDate') 期限 
-              td
-                input(id='limitDate', name='limitDate', type='date', style='width: 238px;', required)
+        table
+          tr
+            td
+              label(for='newTodoName') ToDo名
+            td
+              input(id='newTodoName', name='newTodoName', type='text', placeholder='ToDoを入力してください', size=30)
+          tr
+            td
+              label(for='limitDate') 期限 
+            td
+              input(id='limitDate', name='limitDate', type='date', style='width: 238px;', required)
       div(style='float: left; padding: 3px;')
         input(id='createTodoButton', type='button', value='ToDoの作成', style='height: 3.6em;')
     div(style='clear: both;')

@@ -62,17 +62,17 @@ ul {
 }
 
 .check {
-    width: 100px;
-    height: 80px;
-    margin-top: 10px;
+  width: 100px;
+  height: 80px;
+  margin-top: 10px;
 }
 
 .unchecked {
-    background-color: darksalmon;
-    color: white;
+  background-color: darksalmon;
+  color: white;
 }
 
 .checked {
-    background-color: cornflowerblue;
-    color: white;
+  background-color: cornflowerblue;
+  color: white;
 }
