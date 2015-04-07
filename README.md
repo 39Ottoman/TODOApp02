@@ -23,7 +23,7 @@
 ### /todo POST
 - 該当するリストにToDoを追加
 
-### /todo/:todoId/check
+### /todo/:todoId/check PUT
 - todoIdに該当するToDoのcheck属性(未完了・完了)を変更
 
 ## 使っているライブラリ
