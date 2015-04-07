@@ -14,22 +14,55 @@ function showTodoLists() {
     var $lists = $('#lists');
     $lists.fadeOut(function() {
         $lists.children().remove();
-        
         // /todolistsにGETでアクセス
         $.get('todolists', function(todoLists) {
             // 取得したToDoリストを追加
             $.each(todoLists, function(index, todoList) {
-//                console.log(todoList._id);
-                var listButton = '<div class="panel">'
+                var listButton = '<div class="panel" id="' + todoList._id + '">'
                     + '<a href="/todopage/' + todoList._id + '">' + todoList.name + '</a></br>'
-                    + 'ToDoはありません' + '</br>'
-                    + '～9999年9月99日'
+                    + '<div class="info"></div>'
                     + '</div>';
                 $lists.prepend(listButton);
+                showListInformation(todoList._id);
             });
         });
     });
     $lists.fadeIn();
+}
+
+// 該当するToDoリストでのToDoの数・完了している数・直近の期限を詳細として表示
+function showListInformation(listId) {
+    // /todosにGETでアクセス
+    var message;
+    var $infoBox = $('#' + listId + '>.info');
+    $.get('/todos/' + listId, function(todos) {
+        console.log('todo - ' + listId);
+        console.log(todos);
+        // Todoがなければメッセージを表示
+        var todoCount = todos.length;
+        if(todos.length === 0) {
+            message = '<div>Todoが作成されていません</div>';
+        } else {
+            // 取得したToDoの中での完了している数と直近の期限を求める
+            var checkCount = 0;
+            var recentLimitDate = new Date(todos[0].limitDate);
+            $.each(todos, function(index, todo) {
+                if(todo.isCheck === true) {
+                    checkCount++;
+                }
+                var limitDate = new Date(todo.limitDate);
+                if(recentLimitDate > limitDate) {
+                    recentLimitDate = limitDate;
+                }
+            });
+            message = '<div>' + todoCount + '個中' + checkCount + '個がチェック済み</div>'
+                + '<div>～ ' + recentLimitDate.toLocaleDateString('ja-JP') + '</div>';
+            console.log(message);
+        }
+        // ToDoリストの詳細として表示する
+        $infoBox.html('');
+        $infoBox.html(message);
+    });
 }
 
 // 新しいToDoリストを作成+再表示

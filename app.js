@@ -57,7 +57,7 @@ app.get('/todolists', function(req, res) {
     });
 });
 
-// /todolistにGETアクセスしたとき、該当するToDoリスト(1つ)を取得するAPI
+// /todolist/:listIdにGETアクセスしたとき、該当するToDoリスト(1つ)を取得するAPI
 app.get('/todolist/:listId', function(req, res) {
     var listId = req.params.listId;
     // ToDoを取得して送信
