@@ -57,6 +57,22 @@ ul {
   border-style: solid;
   border-width: thin;
   border-color: lightgray;
-  height: 100px;
+  height: 110px;
   padding: 10px;
+}
+
+.check {
+    width: 100px;
+    height: 80px;
+    margin-top: 10px;
+}
+
+.unchecked {
+    background-color: darksalmon;
+    color: white;
+}
+
+.checked {
+    background-color: cornflowerblue;
+    color: white;
 }

@@ -32,20 +32,25 @@ function showTodos() {
         console.log(todos);
         // Todoがなければメッセージを表示
         if(todos.length === 0) {
-            $message.text('Todoが作成されていません');
+            $message.text('ToDoが作成されていません');
             $message.css('color', 'red');
         }
         // 取得したToDoがあれば表示
         $.each(todos, function(index, todo) {
             var todoButton = '<div class="panel" id="' + todo._id + '">'
+                + '<div style="float: left">'
                 + '<h3>' + todo.name + '</h3>'
                 + '期限：　' + new Date(todo.limitDate).toLocaleDateString('ja-JP') + '</br>'
                 + '作成日：' +  new Date(todo.createdDate).toLocaleDateString('ja-JP') + '</br>'
-                + '<input type="button" class="check" value="' + (todo.isCheck? '完了': '未完了') + '"/></br>'
+                + '</div>'
+                + '<div class="checkdiv" style="float: right">'
+                + '<input type="button" class="check ' + (todo.isCheck? 'checked': 'unchecked') + '" value="' + (todo.isCheck? '完了': '未完了') + '"/></br>'
+                + '</div>'
+                + '<div style="clear: both"></div>'
                 + '</div>';
             $todos.prepend(todoButton);
             // ボタンを押したときに完了・未完了の切り替えが出来るようにする
-            var $checkButton = $('#' + todo._id + '>.check');
+            var $checkButton = $('#' + todo._id + '>.checkdiv>.check');
             $checkButton.click(function() {
                 checkTodo(todo._id, !todo.isCheck);
             });

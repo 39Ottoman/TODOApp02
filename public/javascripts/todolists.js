@@ -41,7 +41,7 @@ function showListInformation(listId) {
         // Todoがなければメッセージを表示
         var todoCount = todos.length;
         if(todos.length === 0) {
-            message = '<div>Todoが作成されていません</div>';
+            message = '<div>ToDoが作成されていません</div>';
         } else {
             // 取得したToDoの中での完了している数と直近の期限を求める
             var checkCount = 0;
