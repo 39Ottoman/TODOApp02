@@ -9,7 +9,7 @@ $(function() {
         $('#listName').text(todolist.name);
     });
     
-    getTodos();
+    showTodos();
 });
 
 // リストの作成ボタンを押すとToDoリストを追加し再表示
@@ -19,7 +19,7 @@ $('#createTodoButton').click(function() {
 });
 
 // Todoを表示
-function getTodos() {
+function showTodos() {
     var $todos = $('#todos');
     var $message = $('#todosMessage');
     $todos.fadeOut(function() {
@@ -36,13 +36,18 @@ function getTodos() {
             }
             // 取得したToDoがあれば表示
             $.each(todos, function(index, todo) {
-                var todoButton = '<div class="panel">'
+                var todoButton = '<div class="panel" id="' + todo._id + '">'
                     + '<h3>' + todo.name + '</h3>'
                     + '期限：　' + new Date(todo.limitDate).toLocaleDateString('ja-JP') + '</br>'
                     + '作成日：' +  new Date(todo.createdDate).toLocaleDateString('ja-JP') + '</br>'
-                    + '<input type="button" value="' + (todo.isCheck? '完了': '未完了') + '"/></br>'
+                    + '<input type="button" class="check" value="' + (todo.isCheck? '完了': '未完了') + '"/></br>'
                     + '</div>';
                 $todos.prepend(todoButton);
+                // ボタンを押したときに完了・未完了の切り替えが出来るようにする
+                var $checkButton = $('#' + todo._id + '>.check');
+                $checkButton.click(function() {
+                    checkTodo(todo._id, !todo.isCheck);
+                });
             });
         });
     });
@@ -67,7 +72,7 @@ function createTodo() {
             console.log('/todo POST ' + res);
             // リストが作成されたらリストを更新+メッセージ表示
             if(res) {
-                getTodos();
+                showTodos();
                 console.log('create ' + name + '!');
                 $message.text('新しいToDoが作成されました');
                 $message.css('color', 'black');
@@ -78,4 +83,19 @@ function createTodo() {
         $message.text('ToDo名と期限を両方とも入力してください');
         $message.css('color', 'red');
     }
+}
+
+// 該当するToDoの完了・未完了を切り替える
+function checkTodo(todoId, isCheck) {
+    $.ajax({
+        type: 'PUT',
+        url: '/todo/' + todoId + '/check',
+        data: 'isCheck=' + isCheck,
+        success: function(res) {
+            console.log('/todo/:todoId/check PUT ' + res);
+            if(res) {
+                showTodos();
+            }
+        }
+    });
 }

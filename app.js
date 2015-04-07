@@ -125,6 +125,16 @@ app.post('/todo', function(req, res) {
     }
 });
 
+// /todo/:todoId/checkにPUTアクセスしたとき、該当するToDoのcheck属性を変更する
+app.put('/todo/:todoId/check', function(req, res) {
+    var todoId = req.params.todoId;
+    var isCheck = req.body.isCheck;
+    var Todo = mongoose.model('Todo');
+    Todo.update({_id: todoId}, {$set: {isCheck: isCheck}}, function(err) {
+        res.send(true);
+    });
+});
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
