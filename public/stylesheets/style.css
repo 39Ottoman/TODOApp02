@@ -3,23 +3,24 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
-a {
-/*  color: #00B7FF;*/
+.todoListName {
+  font-size: 1.17em;
+  font-weight: bold;
+  margin-top: 1em;
+  margin-bottom: 1em;
 }
 
 header {
   height: 60px;
   border-style: solid;
   border-width: thin;
-  background-color: darkgray;
+  border-color: darkgray;
+  background-color: lightgray;
 }
 
 ul {
   padding-left: 10px;
   padding-right: 10px;
-}
-
-li {
 }
 
 #logo {
@@ -41,10 +42,13 @@ li {
 }
 
 .panel {
-  background-color: azure;
   border-style: solid;
   border-width: thin;
+  border-color: lightgray;
   margin-top: 10px;
   margin-bottom: 10px;
-  box-shadow: 5px 5px;
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-bottom: 1em;
+  box-shadow: 3px 3px lightgray;
 }

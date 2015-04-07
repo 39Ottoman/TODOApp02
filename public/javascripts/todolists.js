@@ -19,7 +19,7 @@ function showTodoLists() {
             // 取得したToDoリストを追加
             $.each(todoLists, function(index, todoList) {
                 var listButton = '<div class="panel" id="' + todoList._id + '">'
-                    + '<a href="/todopage/' + todoList._id + '">' + todoList.name + '</a></br>'
+                    + '<div class="todoListName"><a href="/todopage/' + todoList._id + '">' + todoList.name + '</a></div>'
                     + '<div class="info"></div>'
                     + '</div>';
                 $lists.prepend(listButton);

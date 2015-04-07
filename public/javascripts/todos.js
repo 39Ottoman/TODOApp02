@@ -9,7 +9,7 @@ $(function() {
         $('#listName').text(todolist.name);
     });
     
-    showTodos();
+    showTodosWithFade();
 });
 
 // リストの作成ボタンを押すとToDoリストを追加し再表示
@@ -22,36 +22,42 @@ $('#createTodoButton').click(function() {
 function showTodos() {
     var $todos = $('#todos');
     var $message = $('#todosMessage');
-    $todos.fadeOut(function() {
-        $todos.children().remove();
-        
-        // /todosにGETでアクセス
-        $.get('/todos/' + listId, function(todos) {
-            console.log('todo - ' + listId);
-            console.log(todos);
-            // Todoがなければメッセージを表示
-            if(todos.length === 0) {
-                $message.text('Todoが作成されていません');
-                $message.css('color', 'red');
-            }
-            // 取得したToDoがあれば表示
-            $.each(todos, function(index, todo) {
-                var todoButton = '<div class="panel" id="' + todo._id + '">'
-                    + '<h3>' + todo.name + '</h3>'
-                    + '期限：　' + new Date(todo.limitDate).toLocaleDateString('ja-JP') + '</br>'
-                    + '作成日：' +  new Date(todo.createdDate).toLocaleDateString('ja-JP') + '</br>'
-                    + '<input type="button" class="check" value="' + (todo.isCheck? '完了': '未完了') + '"/></br>'
-                    + '</div>';
-                $todos.prepend(todoButton);
-                // ボタンを押したときに完了・未完了の切り替えが出来るようにする
-                var $checkButton = $('#' + todo._id + '>.check');
-                $checkButton.click(function() {
-                    checkTodo(todo._id, !todo.isCheck);
-                });
+
+    // ToDo一覧を初期化
+    $todos.children().remove();
+
+    // /todosにGETでアクセス
+    $.get('/todos/' + listId, function(todos) {
+        console.log('todo - ' + listId);
+        console.log(todos);
+        // Todoがなければメッセージを表示
+        if(todos.length === 0) {
+            $message.text('Todoが作成されていません');
+            $message.css('color', 'red');
+        }
+        // 取得したToDoがあれば表示
+        $.each(todos, function(index, todo) {
+            var todoButton = '<div class="panel" id="' + todo._id + '">'
+                + '<h3>' + todo.name + '</h3>'
+                + '期限：　' + new Date(todo.limitDate).toLocaleDateString('ja-JP') + '</br>'
+                + '作成日：' +  new Date(todo.createdDate).toLocaleDateString('ja-JP') + '</br>'
+                + '<input type="button" class="check" value="' + (todo.isCheck? '完了': '未完了') + '"/></br>'
+                + '</div>';
+            $todos.prepend(todoButton);
+            // ボタンを押したときに完了・未完了の切り替えが出来るようにする
+            var $checkButton = $('#' + todo._id + '>.check');
+            $checkButton.click(function() {
+                checkTodo(todo._id, !todo.isCheck);
             });
         });
     });
-    $todos.fadeIn();
+    
+}
+
+// フェードしながらToDoを表示
+function showTodosWithFade() {
+    $('#todos').fadeOut(function() {showTodos();});
+    $('#todos').fadeIn();
 }
 
 // 新しいToDoを作成+再表示
@@ -72,7 +78,7 @@ function createTodo() {
             console.log('/todo POST ' + res);
             // リストが作成されたらリストを更新+メッセージ表示
             if(res) {
-                showTodos();
+                showTodosWithFade();
                 console.log('create ' + name + '!');
                 $message.text('新しいToDoが作成されました');
                 $message.css('color', 'black');
